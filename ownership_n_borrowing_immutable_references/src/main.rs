@@ -1,10 +1,8 @@
-/*
 fn make_string_dangle() -> &String {
     let s: String = String::from("dangle");
     let r: &String = &s;
     r
 }
-*/
 
 fn make_string_not_dangle() -> String {
     let s: String = String::from("dangle");
@@ -19,13 +17,13 @@ fn main() {
     println!("{}", y);
 
     // will not work
-    // let s: String = String::from("hello");
-    // let t: String = s;
-    // println!("{}", s);
+    let s: String = String::from("hello");
+    let t: String = s;
+    println!("{}", s);
 
     // works
     let s: String = String::from("hello");
-    let _t: String = s.clone();
+    let t: String = s.clone();
     println!("{}", s);
 
     // works
@@ -36,7 +34,7 @@ fn main() {
     println!("{}", s);
 
     // does not work
-    // let _r: &String = make_string_dangle();
+    let _r: &String = make_string_dangle();
 
     let r: String = make_string_not_dangle();
     println!("{}", r);
