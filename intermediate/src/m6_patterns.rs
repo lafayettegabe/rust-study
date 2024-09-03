@@ -65,5 +65,13 @@ mod test {
         };
 
         println!("{}", res);
+
+        let my_int: i32 = if let Ok(r) = some_res {
+            r
+        } else {
+            panic!("There was a problem")
+        };
+
+        println!("{}", my_int);
     }
 }
