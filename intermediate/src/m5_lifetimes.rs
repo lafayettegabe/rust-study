@@ -87,3 +87,63 @@ fn example_4() {
         }
     }
 } // 'a dies
+
+fn example_5() {
+    let highest_age: &i32;
+    let new_highest_age: i32;
+
+    let alice_age = 20; // 'a
+    {
+        let bob_age = 25; // 'b
+
+        highest_age = largest_age::<i32>(&alice_age, &bob_age);
+        new_highest_age = *highest_age;
+    } // 'b dies
+
+    println!("Highest age is: {}", new_highest_age);
+
+    // 'a != 'b => b is shorter than 'a so the shortest lifetime is used
+    fn largest_age<'a, T: PartialOrd>(alice_age: &'a T, bob_age: &'a T) -> &'a T {
+        if alice_age > bob_age {
+            alice_age
+        } else {
+            bob_age
+        }
+    }
+} // 'a dies
+
+struct Person<'p> {
+    name: &'p str,
+    age: &'p i32, // can be diff like: age: &'q i32
+}
+
+fn example_6() {
+    let highest_age: &i32;
+    let new_highest_age: i32;
+
+    let alice: Person = Person {
+        name: "alice",
+        age: &20,
+    };
+
+    {
+        let bob: Person = Person {
+            name: "bob",
+            age: &25,
+        };
+
+        highest_age = largest_age::<i32>(alice.age, bob.age);
+        new_highest_age = *highest_age;
+    } // 'b dies
+
+    println!("Highest age is: {}", new_highest_age);
+
+    // 'a != 'b => b is shorter than 'a so the shortest lifetime is used
+    fn largest_age<'a, T: PartialOrd>(alice_age: &'a T, bob_age: &'a T) -> &'a T {
+        if alice_age > bob_age {
+            alice_age
+        } else {
+            bob_age
+        }
+    }
+} // 'a dies
