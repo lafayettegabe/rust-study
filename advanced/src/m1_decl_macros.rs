@@ -1,12 +1,14 @@
 #[cfg(test)]
 mod tests {
 
+    #[macro_export]
     macro_rules! ex_expr_macro {
         ($x: expr) => {
             format!("You sent an expression: {}", $x)
         };
     }
 
+    #[macro_export]
     macro_rules! ex_type_macro {
         ($x: ty) => {
             match stringify!($x) {
@@ -28,6 +30,7 @@ mod tests {
         dbg!(some_var);
     }
 
+    #[macro_export]
     macro_rules! my_vec {
         ( $($x: expr),+) => {
           {
